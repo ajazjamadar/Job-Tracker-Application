@@ -1,0 +1,73 @@
+{% extends 'layout.html' %}
+
+{% block title %}Home - Job Tracker{% endblock %}
+
+{% block content %}
+<div class="text-center py-5">
+  <h1 class="display-4 mb-4">
+    <i class="bi bi-briefcase-fill text-primary"></i>
+    Job Application Tracker
+  </h1>
+  <p class="lead text-muted mb-5">
+    Organize and track your job applications in one place. Stay on top of your job search!
+  </p>
+  
+  {% if current_user.is_authenticated %}
+    <div class="mb-4">
+      <a href="{{ url_for('main.dashboard') }}" class="btn btn-primary btn-lg me-2">
+        <i class="bi bi-speedometer2"></i> Go to Dashboard
+      </a>
+      <a href="{{ url_for('main.new_application') }}" class="btn btn-outline-primary btn-lg">
+        <i class="bi bi-plus-circle"></i> Add Application
+      </a>
+    </div>
+  {% else %}
+    <div class="mb-4">
+      <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg me-2">
+        <i class="bi bi-person-plus"></i> Get Started
+      </a>
+      <a href="{{ url_for('auth.login') }}" class="btn btn-outline-primary btn-lg">
+        <i class="bi bi-box-arrow-in-right"></i> Login
+      </a>
+    </div>
+  {% endif %}
+</div>
+
+<div class="row mt-5">
+  <div class="col-md-4 mb-4">
+    <div class="card h-100 border-0 shadow-sm">
+      <div class="card-body text-center">
+        <i class="bi bi-list-check display-4 text-primary mb-3"></i>
+        <h5 class="card-title">Track Applications</h5>
+        <p class="card-text text-muted">
+          Keep all your job applications organized in one central location.
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-4 mb-4">
+    <div class="card h-100 border-0 shadow-sm">
+      <div class="card-body text-center">
+        <i class="bi bi-calendar-check display-4 text-success mb-3"></i>
+        <h5 class="card-title">Follow-up Reminders</h5>
+        <p class="card-text text-muted">
+          Set follow-up dates and never miss an important deadline.
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-4 mb-4">
+    <div class="card h-100 border-0 shadow-sm">
+      <div class="card-body text-center">
+        <i class="bi bi-graph-up display-4 text-info mb-3"></i>
+        <h5 class="card-title">Monitor Progress</h5>
+        <p class="card-text text-muted">
+          Track the status of each application from applied to offer.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends 'layout.html' %}
+
+{% block title %}{% if application %}Edit{% else %}New{% endif %} Application - Job Tracker{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6">
+    <div class="card shadow">
+      <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">
+          <i class="bi bi-{% if application %}pencil{% else %}plus-circle{% endif %}"></i>
+          {% if application %}Edit Application{% else %}Add New Application{% endif %}
+        </h4>
+      </div>
+      <div class="card-body p-4">
+        <form method="post" novalidate>
+          {{ form.hidden_tag() }}
+          
+          <div class="row">
+            <!-- Company -->
+            <div class="col-md-12 mb-3">
+              {{ form.company.label(class="form-label") }}
+              <span class="text-danger">*</span>
+              {{ form.company(class="form-control form-control-lg" + (" is-invalid" if form.company.errors else ""), placeholder="e.g., Google, Microsoft, etc.") }}
+              {% if form.company.errors %}
+                <div class="invalid-feedback">
+                  {% for error in form.company.errors %}{{ error }}{% endfor %}
+                </div>
+              {% endif %}
+            </div>
+
+            <!-- Position -->
+            <div class="col-md-12 mb-3">
+              {{ form.position.label(class="form-label") }}
+              <span class="text-danger">*</span>
+              {{ form.position(class="form-control" + (" is-invalid" if form.position.errors else ""), placeholder="e.g., Software Engineer, Data Analyst") }}
+              {% if form.position.errors %}
+                <div class="invalid-feedback">
+                  {% for error in form.position.errors %}{{ error }}{% endfor %}
+                </div>
+              {% endif %}
+            </div>
+
+            <!-- Status -->
+            <div class="col-md-6 mb-3">
+              {{ form.status.label(class="form-label") }}
+              {{ form.status(class="form-select" + (" is-invalid" if form.status.errors else "")) }}
+              {% if form.status.errors %}
+                <div class="invalid-feedback">
+                  {% for error in form.status.errors %}{{ error }}{% endfor %}
+                </div>
+              {% endif %}
+            </div>
+
+            <!-- Date Applied -->
+            <div class="col-md-6 mb-3">
+              {{ form.date_applied.label(class="form-label") }}
+              {{ form.date_applied(class="form-control" + (" is-invalid" if form.date_applied.errors else ""), type="date") }}
+              {% if form.date_applied.errors %}
+                <div class="invalid-feedback">
+                  {% for error in form.date_applied.errors %}{{ error }}{% endfor %}
+                </div>
+              {% endif %}
+            </div>
+
+            <!-- Follow-up Date -->
+            <div class="col-md-12 mb-3">
+              {{ form.follow_up_date.label(class="form-label") }}
+              {{ form.follow_up_date(class="form-control" + (" is-invalid" if form.follow_up_date.errors else ""), type="date") }}
+              {% if form.follow_up_date.errors %}
+                <div class="invalid-feedback">
+                  {% for error in form.follow_up_date.errors %}{{ error }}{% endfor %}
+                </div>
+              {% endif %}
+              <div class="form-text">
+                <i class="bi bi-info-circle"></i> Set a reminder to follow up on this application
+              </div>
+            </div>
+
+            <!-- Notes -->
+            <div class="col-md-12 mb-3">
+              {{ form.notes.label(class="form-label") }}
+              {{ form.notes(class="form-control" + (" is-invalid" if form.notes.errors else ""), rows=4, placeholder="Add any notes about the application, interview details, contacts, etc.") }}
+              {% if form.notes.errors %}
+                <div class="invalid-feedback">
+                  {% for error in form.notes.errors %}{{ error }}{% endfor %}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="d-grid gap-2 d-md-flex justify-content-md-between mt-4">
+            <a href="{{ url_for('main.applications_list') }}" class="btn btn-outline-secondary">
+              <i class="bi bi-arrow-left"></i> Cancel
+            </a>
+            {{ form.submit(class="btn btn-primary btn-lg px-5") }}
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

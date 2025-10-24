@@ -1,0 +1,118 @@
+{% extends 'layout.html' %}
+
+{% block title %}Dashboard - Job Tracker{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1><i class="bi bi-speedometer2"></i> Dashboard</h1>
+  <a href="{{ url_for('main.new_application') }}" class="btn btn-primary">
+    <i class="bi bi-plus-circle"></i> Add Application
+  </a>
+</div>
+
+{% if applications %}
+  <!-- Stats Cards -->
+  <div class="row mb-4">
+    <div class="col-md-3 mb-3">
+      <div class="card border-primary">
+        <div class="card-body text-center">
+          <i class="bi bi-file-earmark-text display-4 text-primary"></i>
+          <h3 class="mt-2">{{ applications|length }}</h3>
+          <p class="text-muted mb-0">Total Applications</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <div class="card border-info">
+        <div class="card-body text-center">
+          <i class="bi bi-send display-4 text-info"></i>
+          <h3 class="mt-2">{{ applications|selectattr('status', 'equalto', 'Applied')|list|length }}</h3>
+          <p class="text-muted mb-0">Applied</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <div class="card border-warning">
+        <div class="card-body text-center">
+          <i class="bi bi-chat-dots display-4 text-warning"></i>
+          <h3 class="mt-2">{{ applications|selectattr('status', 'equalto', 'Interview')|list|length }}</h3>
+          <p class="text-muted mb-0">Interviews</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <div class="card border-success">
+        <div class="card-body text-center">
+          <i class="bi bi-trophy display-4 text-success"></i>
+          <h3 class="mt-2">{{ applications|selectattr('status', 'equalto', 'Offer')|list|length }}</h3>
+          <p class="text-muted mb-0">Offers</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Applications -->
+  <h3 class="mb-3">Recent Applications</h3>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead class="table-light">
+        <tr>
+          <th>Company</th>
+          <th>Position</th>
+          <th>Status</th>
+          <th>Date Applied</th>
+          <th>Follow-up</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for app in applications[:10] %}
+          <tr>
+            <td><strong>{{ app.company }}</strong></td>
+            <td>{{ app.position or '-' }}</td>
+            <td>
+              {% if app.status == 'Applied' %}
+                <span class="badge bg-info">{{ app.status }}</span>
+              {% elif app.status == 'Interview' %}
+                <span class="badge bg-warning text-dark">{{ app.status }}</span>
+              {% elif app.status == 'Offer' %}
+                <span class="badge bg-success">{{ app.status }}</span>
+              {% elif app.status == 'Rejected' %}
+                <span class="badge bg-danger">{{ app.status }}</span>
+              {% else %}
+                <span class="badge bg-secondary">{{ app.status }}</span>
+              {% endif %}
+            </td>
+            <td>{{ app.date_applied.strftime('%Y-%m-%d') if app.date_applied else '-' }}</td>
+            <td>{{ app.follow_up_date.strftime('%Y-%m-%d') if app.follow_up_date else '-' }}</td>
+            <td>
+              <a href="{{ url_for('main.edit_application', app_id=app.id) }}" class="btn btn-sm btn-outline-primary">
+                <i class="bi bi-pencil"></i> Edit
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% if applications|length > 10 %}
+    <div class="text-center mt-3">
+      <a href="{{ url_for('main.applications_list') }}" class="btn btn-outline-primary">
+        View All Applications <i class="bi bi-arrow-right"></i>
+      </a>
+    </div>
+  {% endif %}
+
+{% else %}
+  <!-- Empty State -->
+  <div class="text-center py-5">
+    <i class="bi bi-inbox display-1 text-muted"></i>
+    <h3 class="mt-3 text-muted">No Applications Yet</h3>
+    <p class="text-muted mb-4">Start tracking your job applications to see your progress here.</p>
+    <a href="{{ url_for('main.new_application') }}" class="btn btn-primary btn-lg">
+      <i class="bi bi-plus-circle"></i> Add Your First Application
+    </a>
+  </div>
+{% endif %}
+{% endblock %}

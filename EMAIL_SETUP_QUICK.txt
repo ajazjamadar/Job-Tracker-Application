@@ -1,0 +1,92 @@
+╔════════════════════════════════════════════════════════════════════════════════╗
+║                     EMAIL SETUP QUICK REFERENCE CARD                           ║
+╚════════════════════════════════════════════════════════════════════════════════╝
+
+📧 GMAIL SETUP (EASIEST - RECOMMENDED FOR DEVELOPMENT)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Step 1: Enable 2-Factor Authentication
+   → https://myaccount.google.com/security
+
+Step 2: Generate App Password  
+   → https://myaccount.google.com/apppasswords
+   → Select: Mail > Other > "Job Application Tracker" > Generate
+   → Copy the 16-character password (remove spaces)
+
+Step 3: Update your .env file with:
+   
+   MAIL_USERNAME=your-email@gmail.com
+   MAIL_PASSWORD=xxxxxxxxxxxxxxxx    ← 16-char app password (NO SPACES!)
+   MAIL_DEFAULT_SENDER=your-email@gmail.com
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📧 OUTLOOK/HOTMAIL SETUP (NO APP PASSWORD NEEDED)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Update your .env file with:
+
+   MAIL_SERVER=smtp-mail.outlook.com
+   MAIL_PORT=587
+   MAIL_USERNAME=your-email@outlook.com
+   MAIL_PASSWORD=your-regular-password    ← Use your regular password
+   MAIL_DEFAULT_SENDER=your-email@outlook.com
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📧 YAHOO MAIL SETUP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Step 1: Generate App Password
+   → https://login.yahoo.com/account/security
+   → Generate app password > Other app > "Job Application Tracker"
+
+Step 2: Update your .env file with:
+
+   MAIL_SERVER=smtp.mail.yahoo.com
+   MAIL_PORT=587
+   MAIL_USERNAME=your-email@yahoo.com
+   MAIL_PASSWORD=your-app-password
+   MAIL_DEFAULT_SENDER=your-email@yahoo.com
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ TEST YOUR CONFIGURATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+   .\.venv\Scripts\Activate.ps1
+   python test_email_config.py
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚠️  COMMON MISTAKES TO AVOID:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+   ❌ Using regular Gmail password instead of app password
+   ❌ Including spaces in the app password
+   ❌ Not enabling 2FA before generating app password
+   ❌ Using the wrong MAIL_SERVER or MAIL_PORT
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔒 SECURITY REMINDERS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+   ✓ Never commit .env file to Git (already in .gitignore)
+   ✓ Treat app passwords like regular passwords
+   ✓ Revoke unused app passwords from your account settings
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📨 WHAT EMAILS WILL BE SENT?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+   • Welcome emails when users register
+   • Application reminders for follow-ups
+   • Status change notifications
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Need more help? Check EMAIL_SETUP.md for detailed instructions!
+
+╚════════════════════════════════════════════════════════════════════════════════╝
