@@ -49,7 +49,7 @@ def login():
             if not next_page or not next_page.startswith('/'):
                 next_page = url_for('main.dashboard')
             
-            flash(f'Welcome back, {user.name or user.email}!', 'success')
+            flash(f'Welcome, {user.name or user.email}!', 'success')
             return redirect(next_page)
         else:
             current_app.logger.warning(f'Failed login attempt for email: {form.email.data}')
